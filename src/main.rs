@@ -54,6 +54,17 @@ fn main() {
         let n25 = Box::into_raw(Box::new(Node::<u32>::new(Some(25))));
         let n26 = Box::into_raw(Box::new(Node::<u32>::new(Some(26))));
 
+        //build levels
+        let mut list = List::<u32>::new();
+        (*(list.head)).next = vec![n3];
+        let mut ptr = n3;
+        let mut i = 0;
+        let mut bk_ptr = list.head;
+        while (*(*(*ptr).next)[0]).item != None {
+            let item = (*(*(*ptr).next)[0]).item;
+            ptr = (*(*ptr).next)[0];
+        }
+
         //level 0
         (*n3).next.push(n6);
         (*n6).next.push(n7);
@@ -79,7 +90,7 @@ fn main() {
         assert!(search(&list, 0) == None);
         assert!(search(&list, 3) == Some(3));
         assert!(search(&list, 25) == Some(25));
-        assert!(search(&list, 1) == None);
+        assert!(search(&list, 1) == Some(1));
         assert!(search(&list, 17) == Some(17));
         assert!(search(&list, 12) == Some(12));
         assert!(search(&list, 26) == Some(26));
